@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hack'a Valley Security Conference — Vale do Paraíba/SP</title>
+  <meta name="description" content="Hack'a Valley Security Conference — 27/06/2026 — Vale do Paraíba/SP. Palestras, comunidade, segurança e pesquisa aplicada." />
+  <meta name="theme-color" content="#0b0620" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#07041a;
+      --bg1:#0b0620;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --stroke: rgba(255,255,255,.12);
+
+      --neon-cyan:#3ee7ff;
+      --neon-pink:#ff3bd4;
+      --neon-purple:#8b5cff;
+      --sun:#ff6a2b;
+
+      --text:#e9e6ff;
+      --muted: rgba(233,230,255,.75);
+
+      --radius: 20px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(255,59,212,.24), transparent 60%),
+        radial-gradient(900px 600px at 80% 10%, rgba(62,231,255,.18), transparent 55%),
+        radial-gradient(1100px 700px at 50% 120%, rgba(139,92,255,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 35%, #050313 100%);
+      font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x:hidden;
+    }
+
+    /* Subtle scanlines */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.02),
+        rgba(255,255,255,.02) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+      pointer-events:none;
+      mix-blend-mode: overlay;
+      opacity:.35;
+    }
+
+    a{color:inherit}
+    .container{width:min(1120px, calc(100% - 40px)); margin:0 auto}
+
+    /* Neon utilities */
+    .neon{
+      text-shadow:
+        0 0 10px rgba(255,59,212,.35),
+        0 0 22px rgba(62,231,255,.25);
+    }
+    .glow-cyan{box-shadow: 0 0 0 1px rgba(62,231,255,.25), 0 0 30px rgba(62,231,255,.22)}
+    .glow-pink{box-shadow: 0 0 0 1px rgba(255,59,212,.22), 0 0 30px rgba(255,59,212,.18)}
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--stroke);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+    }
+    .dot{
+      width:9px; height:9px; border-radius:99px;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 18px rgba(62,231,255,.65);
+    }
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:30;
+      background: rgba(5,3,19,.62);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+      min-width: 220px;
+    }
+    .brand img{
+      width:38px; height:38px; object-fit:contain;
+      filter: drop-shadow(0 0 12px rgba(62,231,255,.35));
+    }
+    .brand strong{
+      font-family:"Russo One", system-ui;
+      letter-spacing:.5px;
+      font-weight:400;
+      font-size:16px;
+      line-height:1.1;
+    }
+    .brand span{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+    .menu{
+      display:flex; flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    .menu a{
+      text-decoration:none;
+      color:rgba(233,230,255,.85);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:10px 12px;
+      border-radius: 999px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      font-size:14px;
+    }
+    .menu a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(62,231,255,.25);
+    }
+
+    /* Hero */
+    .hero{
+  position: relative;
+  padding:56px 0 26px;
+  overflow:hidden;
+
+  background-image:
+    radial-gradient(1200px 520px at 20% 10%, rgba(255,59,212,.18), transparent 60%),
+    radial-gradient(980px 520px at 85% 0%, rgba(62,231,255,.14), transparent 55%),
+    linear-gradient(180deg, rgba(7,4,26,.72), rgba(11,6,32,.55) 55%, rgba(5,3,19,.10) 100%),
+    url("assets/hero-bg.jpg");
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;              /* responsivo: preenche sem distorcer */
+  background-attachment: scroll;       /* evita bugs no mobile */
+}
+
+/* opcional: aumenta altura mínima para “segurar” a arte no desktop */
+@media (min-width: 981px){
+  .hero{ min-height: 72vh; }
+}
+
+/* opcional: no mobile, garante legibilidade e enquadramento */
+@media (max-width: 980px){
+  .hero{
+    min-height: 64vh;
+    background-position: center top;   /* ajusta enquadramento */
+  }
+}
+
+/* garante conteúdo acima do background */
+.hero .container{
+  position: relative;
+  z-index: 1;
+}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:26px;
+      align-items:stretch;
+    }
+    .title{
+      font-family:"Russo One", system-ui;
+      font-size: clamp(36px, 4.4vw, 58px);
+      letter-spacing: .6px;
+      margin:14px 0 12px;
+      line-height:1.05;
+    }
+    .subtitle{
+      color:var(--muted);
+      font-size: clamp(16px, 1.6vw, 18px);
+      line-height:1.6;
+      margin:0 0 18px;
+      max-width: 62ch;
+    }
+    .cta-row{
+      display:flex; flex-wrap:wrap;
+      gap:12px;
+      margin-top: 16px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      transition: transform .15s ease, filter .15s ease, background .15s ease, border-color .15s ease;
+      will-change: transform;
+      font-size:14px;
+    }
+    .btn:hover{transform: translateY(-1px); filter: brightness(1.06)}
+    .btn-primary{
+      border-color: rgba(255,59,212,.32);
+      background: linear-gradient(90deg, rgba(255,59,212,.25), rgba(62,231,255,.12));
+      box-shadow: 0 0 0 1px rgba(255,59,212,.18), 0 20px 60px rgba(255,59,212,.14);
+    }
+    .btn-secondary{
+      border-color: rgba(62,231,255,.28);
+      background: linear-gradient(90deg, rgba(62,231,255,.18), rgba(139,92,255,.10));
+      box-shadow: 0 0 0 1px rgba(62,231,255,.14), 0 18px 50px rgba(62,231,255,.10);
+    }
+    .btn-ghost{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top: 18px;
+    }
+    .kpi .box{
+      padding:14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .kpi .box b{
+      display:block;
+      font-size:18px;
+      margin-bottom:4px;
+      letter-spacing:.2px;
+    }
+    .kpi .box small{color:var(--muted)}
+
+    .hero-art{
+      position:relative;
+      padding:16px;
+      overflow:hidden;
+    }
+    .hero-art::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(400px 220px at 70% 25%, rgba(255,59,212,.28), transparent 65%),
+        radial-gradient(420px 260px at 40% 70%, rgba(62,231,255,.22), transparent 65%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      filter: blur(0px);
+      z-index:0;
+    }
+    .hero-art > *{position:relative; z-index:1}
+    .poster{
+      width:100%;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 22px 70px rgba(0,0,0,.55);
+      display:block;
+      object-fit:cover;
+      aspect-ratio: 4 / 5;
+    }
+    .hint{
+      margin-top: 10px;
+      color: rgba(233,230,255,.68);
+      font-size: 13px;
+      line-height:1.45;
+    }
+
+    /* Sections */
+    section{padding: 52px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
+      margin-bottom: 16px;
+    }
+    .section-title h2{
+      margin:0;
+      font-family:"Russo One", system-ui;
+      font-weight:400;
+      letter-spacing:.4px;
+      font-size: 26px;
+    }
+    .section-title p{
+      margin:0;
+      color: var(--muted);
+      max-width: 60ch;
+      font-size: 15px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top: 18px;
+    }
+    .card{
+      padding:18px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 16px 54px rgba(0,0,0,.35);
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .card p{margin:0; color: var(--muted); line-height:1.65}
+
+    .info-list{
+      margin:14px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .info-list li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.09);
+    }
+    .ico{
+      width:36px; height:36px;
+      border-radius: 12px;
+      display:grid; place-items:center;
+      background: rgba(62,231,255,.10);
+      border:1px solid rgba(62,231,255,.18);
+      box-shadow: 0 0 22px rgba(62,231,255,.10);
+      flex: 0 0 auto;
+    }
+    .ico svg{opacity:.95}
+    .info-list b{display:block}
+    .info-list small{display:block; color:var(--muted); margin-top:2px; line-height:1.4}
+
+    /* Speakers */
+    .speakers-head{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      margin-top: 6px;
+      margin-bottom: 14px;
+      flex-wrap:wrap;
+    }
+    .speakers-head .note{color:var(--muted); font-size: 14px}
+    .speakers-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+      margin-top: 16px;
+    }
+    .speaker{
+      padding:14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      position:relative;
+      overflow:hidden;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .speaker:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,59,212,.22);
+    }
+    .speaker::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(220px 120px at 65% 20%, rgba(255,59,212,.22), transparent 60%),
+                  radial-gradient(220px 140px at 30% 90%, rgba(62,231,255,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .speaker > *{position:relative; z-index:1}
+    .avatar{
+      width:100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(255,59,212,.18), rgba(62,231,255,.12));
+      display:block;
+      object-fit:cover;
+    }
+    .speaker h4{
+      margin:10px 0 4px;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .speaker .role{
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+    }
+    .speaker .tags{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-top: 10px;
+    }
+    .tag{
+      font-size: 12px;
+      padding:7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(233,230,255,.86);
+    }
+
+    /* CFP band */
+    .band{
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(520px 220px at 20% 50%, rgba(255,59,212,.22), transparent 60%),
+        radial-gradient(520px 220px at 80% 40%, rgba(62,231,255,.18), transparent 60%),
+        rgba(255,255,255,.05);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      box-shadow: var(--shadow);
+    }
+    .band h3{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .band p{margin:6px 0 0; color:var(--muted); line-height:1.55; max-width: 72ch}
+
+    /* Footer */
+    footer{
+      padding: 34px 0 48px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.12);
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:start;
+    }
+    .footer-grid p{color:var(--muted); line-height:1.6}
+    .footer-links{
+      display:grid; gap:10px;
+      justify-items:end;
+    }
+    .footer-links a{
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:10px 12px;
+      border-radius: 14px;
+      width: fit-content;
+    }
+    .mini{
+      margin-top: 14px;
+      color: rgba(233,230,255,.55);
+      font-size: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr; }
+      .kpi{grid-template-columns: 1fr; }
+      .grid-2{grid-template-columns: 1fr; }
+      .speakers-grid{grid-template-columns: repeat(2, 1fr); }
+      .footer-grid{grid-template-columns: 1fr; }
+      .footer-links{justify-items:start;}
+      .brand{min-width:auto;}
+    }
+    @media (max-width: 520px){
+      .menu{gap:8px}
+      .menu a{padding:9px 10px; font-size:13px}
+      .speakers-grid{grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Hack'a Valley">
+        <!-- Troque pelos seus arquivos -->
+        <img src="assets/logo.png" alt="Hack'a Valley Logo" />
+        <div>
+          <strong class="neon">Hack'a Valley</strong>
+          <span>Security Conference</span>
+        </div>
+      </a>
+
+      <nav class="menu" aria-label="Navegação">
+        <a href="#sobre">Sobre</a>
+        <a href="#local">Local</a>
+        <a href="#palestrantes">Palestrantes</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="top" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="chip">
+          <span class="dot"></span>
+          <span style="color:rgba(233,230,255,.9); font-weight:700;">29/08/2026</span>
+          <span style="color:rgba(233,230,255,.6);">•</span>
+          <span style="color:rgba(233,230,255,.78);">Vale do Paraíba — SP</span>
+        </div>
+
+        <h1 class="title neon">
+          Hack’a Valley<br/>
+          <span style="color:rgba(62,231,255,.95);">Security Conference</span>
+        </h1>
+
+        <p class="subtitle">
+          Um encontro de segurança focado em pesquisa aplicada, comunidade e prática real:
+          ofensiva, defensiva, AppSec, cloud, inteligência, privacidade e operações.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#palestrantes">
+            Ver palestrantes
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <!-- Troque o link do CFP abaixo -->
+          <a class="btn btn-secondary" href="https://forms.gle/SEU_CFP_AQUI" target="_blank" rel="noopener">
+            Submeter palestra (CFP)
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <a class="btn btn-ghost" href="#local">Detalhes do local</a>
+        </div>
+
+        <div class="kpi">
+          <div class="box glow-pink">
+            <b>1 dia</b>
+            <small>Trilhas + networking + conteúdo</small>
+          </div>
+          <div class="box glow-cyan">
+            <b>Conteúdo prático</b>
+            <small>Do laboratório ao mundo real</small>
+          </div>
+          <div class="box">
+            <b>Comunidade</b>
+            <small>Vale do Paraíba + Brasil</small>
+          </div>
+        </div>
+      </div>
+
+      <!--<aside class="hero-art glass">-->
+        <!-- Troque pelo seu "save the date" / arte principal -->
+        <!--<img class="poster" src="assets/save-the-date.jpg" alt="Hack'a Valley - Save the Date" />-->
+      <!--</aside>-->
+    </div>
+  </main>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="container">
+      <div class="section-title">
+        <h2 class="neon">Sobre a conferência</h2>
+        
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>O que esperar</h3>
+          <p>
+            Palestras com recorte técnico e operacional, histórias reais (com lições), trilhas temáticas,
+            espaço para iniciativas locais e um ambiente pensado para conversa — não só para “assistir slide”.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Objetivo</h3>
+          <p>
+            A Hack’a Valley nasce para consolidar o ecossistema de segurança do Vale e conectar
+          profissionais, estudantes e empresas com conteúdo denso e aplicável.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCAL / DATA -->
+  <section id="local">
+    <div class="container">
+      <div class="section-title">
+        <h2 class="neon">Local e informações</h2>
+        
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Informações rápidas</h3>
+          <ul class="info-list">
+            <li>
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 2v3M17 2v3M3.5 9h17" stroke="rgba(233,230,255,.9)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M6 6h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" stroke="rgba(233,230,255,.9)" stroke-width="2"/>
+                </svg>
+              </div>
+              <div>
+                <b>Data</b>
+                <small>29 de agosto de 2026</small>
+              </div>
+            </li>
+            <li>
+              <div class="ico" aria-hidden="true" style="background: rgba(255,59,212,.10); border-color: rgba(255,59,212,.18); box-shadow: 0 0 22px rgba(255,59,212,.10);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" stroke="rgba(233,230,255,.9)" stroke-width="2"/>
+                  <path d="M12 10.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" stroke="rgba(233,230,255,.9)" stroke-width="2"/>
+                </svg>
+              </div>
+              <div>
+                <b>Região</b>
+                <small>Vale do Paraíba — SP</small>
+              </div>
+            </li>
+            <li>
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(233,230,255,.9)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <b>Formato</b>
+                <small>One-day conference • trilhas • networking</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Edição 2026</h3>
+          <p>
+            <b>Local:</b> <span style="color:var(--muted)">Hotel Intercity Pindamonhangaba</span><br/>
+            <b>Endereço:</b> <span style="color:var(--muted)">R. Alcides Ramos Nogueira, 782</span><br/>
+            <b>Como chegar:</b> <span style="color:var(--muted)">Mais informações, clique no link do Maps abaixo</span>
+          </p>
+
+          <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn btn-ghost" href="https://www.google.com/maps/place/R.+Alcides+Ramos+Nogueira,+782+-+Nossa+Sra.+do+Perpetuo+Socorro,+Pindamonhangaba+-+SP,+12421-681/@-22.9495793,-45.4824794,823m/data=!3m2!1e3!4b1!4m6!3m5!1s0x94ccf07a3793303d:0x311a0d451efb6d13!8m2!3d-22.9495843!4d-45.4799045!16s%2Fg%2F11f50xqvvf?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
+              Abrir no Google Maps
+            </a>
+            <a class="btn btn-ghost" href="#contato">
+              Patrocínio / parcerias
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALESTRANTES + CFP -->
+  <section id="palestrantes">
+    <div class="container">
+      <div class="section-title">
+        <h2 class="neon">Palestrantes</h2>
+        
+      </div>
+
+      <div class="speakers-head">
+        <div class="note">
+          Ainda montando a curadoria? <span class="neon">Abra o CFP</span> e deixe o site trabalhar por você.
+        </div>
+
+        <!-- Troque o link do CFP aqui -->
+        <a class="btn btn-secondary" href="https://forms.gle/SEU_CFP_AQUI" target="_blank" rel="noopener">
+          CFP — Submeter palestra ↗
+        </a>
+      </div>
+
+      <div class="band">
+        <div>
+          <h3 class="neon">Call for Papers (CFP)</h3>
+          <p>
+            Estamos abrindo submissões para talks com foco técnico e aplicável.
+            Se você tem pesquisa, case, tooling ou uma história real com aprendizado forte: mande.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://forms.gle/SEU_CFP_AQUI" target="_blank" rel="noopener">Enviar submissão →</a>
+          <a class="btn btn-ghost" href="#contato">Dúvidas / contato</a>
+        </div>
+      </div>
+
+      <div class="speakers-grid">
+        <!-- Card 1 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-1.jpg" alt="Palestrante a confirmar" />
+          <h4>Nome do Palestrante</h4>
+          <div class="role">Cargo • Empresa / Comunidade</div>
+          <div class="tags">
+            <span class="tag">AppSec</span>
+            <span class="tag">Offense</span>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-2.jpg" alt="Palestrante a confirmar" />
+          <h4>Nome do Palestrante</h4>
+          <div class="role">Cargo • Empresa / Comunidade</div>
+          <div class="tags">
+            <span class="tag">Cloud</span>
+            <span class="tag">Defense</span>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-3.jpg" alt="Palestrante a confirmar" />
+          <h4>Nome do Palestrante</h4>
+          <div class="role">Cargo • Empresa / Comunidade</div>
+          <div class="tags">
+            <span class="tag">CTI</span>
+            <span class="tag">OSINT</span>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-4.jpg" alt="Palestrante a confirmar" />
+          <h4>Nome do Palestrante</h4>
+          <div class="role">Cargo • Empresa / Comunidade</div>
+          <div class="tags">
+            <span class="tag">Privacy</span>
+            <span class="tag">OPSEC</span>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-5.jpg" alt="Palestrante a confirmar" />
+          <h4>A confirmar</h4>
+          <div class="role">Quer palestrar? Submeta no CFP.</div>
+          <div class="tags">
+            <span class="tag">Research</span>
+            <span class="tag">Tooling</span>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-6.jpg" alt="Palestrante a confirmar" />
+          <h4>A confirmar</h4>
+          <div class="role">Quer palestrar? Submeta no CFP.</div>
+          <div class="tags">
+            <span class="tag">IR</span>
+            <span class="tag">Blue Team</span>
+          </div>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-7.jpg" alt="Palestrante a confirmar" />
+          <h4>A confirmar</h4>
+          <div class="role">Quer palestrar? Submeta no CFP.</div>
+          <div class="tags">
+            <span class="tag">Web</span>
+            <span class="tag">Exploitation</span>
+          </div>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="speaker">
+          <img class="avatar" src="assets/speakers/speaker-8.jpg" alt="Palestrante a confirmar" />
+          <h4>A confirmar</h4>
+          <div class="role">Quer palestrar? Submeta no CFP.</div>
+          <div class="tags">
+            <span class="tag">AI Security</span>
+            <span class="tag">Fraud</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO / RODAPÉ -->
+  <footer id="contato">
+    <div class="container footer-grid">
+      <div>
+        <h2 class="neon" style="font-family:'Russo One'; font-weight:400; letter-spacing:.4px; margin:0 0 10px;">
+          Contato
+        </h2>
+        <p style="margin:0;">
+          Parcerias, patrocínios, imprensa, comunidade e dúvidas gerais.
+          <br/>
+          <b>Email:</b> <span style="color:var(--muted)">contato@hackavalley.com</span>
+          <br/>
+          <b>Instagram:</b> <span style="color:var(--muted)">@hackavalleyconf</span>
+          <br/>
+          <b>LinkedIn:</b> <span style="color:var(--muted)">Hack'a Valley Security Conference</span>
+        </p>
+
+        <div class="mini">
+          © <span id="year"></span> Hack'a Valley Security Conference • Vale do Paraíba — SP
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <!-- Troque pelos links reais -->
+        <a class="glow-cyan" href="https://forms.gle/SEU_CFP_AQUI" target="_blank" rel="noopener">CFP (Google Forms) ↗</a>
+        <a href="#" onclick="alert('Quando tiver o link, colocamos aqui: ingressos, lista de espera ou comunidade.'); return false;">Ingressos / Lista de espera</a>
+        <a href="#local">Local / logística</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ano automático no rodapé
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
