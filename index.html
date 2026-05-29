@@ -142,15 +142,15 @@
       <div class="footer-links"><a class="glow-cyan" href="https://www.sympla.com.br/evento/hack-a-valley/3371450" target="_blank" rel="noopener">Inscrições ↗</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7458146456353406976/" target="_blank" rel="noopener">CFS — Patrocinar ↗</a><a href="#local">Local / logística</a></div>
     </div>
   </footer>
-  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
   <script>
+  document.getElementById("year").textContent=new Date().getFullYear();
   const canvas=document.getElementById('particles-bg');
   const ctx=canvas.getContext('2d');
-  let W,H,ns=[],heroH=0;
+  let W,H,ns=[];
   const N=70,D=120,S=0.38;
-  function getHeroH(){const h=document.querySelector('.hero');return h?h.getBoundingClientRect().height:0}
-  function init(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;heroH=getHeroH();ns=[];for(let i=0;i<N;i++)ns.push({x:Math.random()*W,y:heroH+Math.random()*(H-heroH),vx:(Math.random()-.5)*S,vy:(Math.random()-.5)*S,r:Math.random()*1.4+.7,t:Math.random()<.5?'c':'p'})}
-  function frame(){ctx.clearRect(0,0,W,H);ctx.save();ctx.beginPath();ctx.rect(0,heroH,W,H-heroH);ctx.clip();for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const dx=ns[i].x-ns[j].x,dy=ns[i].y-ns[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<D){ctx.beginPath();ctx.moveTo(ns[i].x,ns[i].y);ctx.lineTo(ns[j].x,ns[j].y);ctx.strokeStyle=`rgba(62,231,255,${(1-d/D)*.28})`;ctx.lineWidth=.55;ctx.stroke()}}ns.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);const c=n.t==='c'?'62,231,255':'255,59,212';ctx.fillStyle=`rgba(${c},.8)`;ctx.shadowColor=`rgba(${c},1)`;ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<heroH||n.y>H)n.vy*=-1});ctx.restore();requestAnimationFrame(frame)}
+  function getHeroBottom(){const nav=document.querySelector('.nav');const hero=document.querySelector('.hero');if(!hero)return 0;const navH=nav?nav.getBoundingClientRect().height:0;return hero.getBoundingClientRect().bottom-navH;}
+  function init(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;ns=[];for(let i=0;i<N;i++)ns.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*S,vy:(Math.random()-.5)*S,r:Math.random()*1.4+.7,t:Math.random()<.5?'c':'p'});}
+  function frame(){ctx.clearRect(0,0,W,H);const cutoff=Math.max(0,getHeroBottom());ctx.save();ctx.beginPath();ctx.rect(0,cutoff,W,H-cutoff);ctx.clip();for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const dx=ns[i].x-ns[j].x,dy=ns[i].y-ns[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<D){ctx.beginPath();ctx.moveTo(ns[i].x,ns[i].y);ctx.lineTo(ns[j].x,ns[j].y);ctx.strokeStyle=`rgba(62,231,255,${(1-d/D)*.28})`;ctx.lineWidth=.55;ctx.stroke();}}ns.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);const c=n.t==='c'?'62,231,255':'255,59,212';ctx.fillStyle=`rgba(${c},.8)`;ctx.shadowColor=`rgba(${c},1)`;ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});ctx.restore();requestAnimationFrame(frame);}
   init();frame();
   window.addEventListener('resize',init);
   </script>
