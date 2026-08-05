@@ -1,0 +1,428 @@
+html_content = """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - Hacka Valley</title>
+    <!-- Você pode adicionar a fonte do site oficial aqui, por padrão usaremos uma fonte limpa e moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === ESTILOS GERAIS DA PÁGINA === */
+        :root {
+            --cor-fundo: #0a0a0a; /* Fundo escuro padrão de sites tech/hacker */
+            --cor-texto: #f2f2f2; /* Texto claro */
+            --cor-destaque: #f591c6; /* Rosa clarinho, baseado no cabeçalho da sua tabela */
+            --cor-borda: #333333;
+            --cor-fundo-tabela: #141414;
+            --cor-fundo-cabecalho: #000000;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--cor-destaque);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* === LAYOUT DAS TABELAS (Lado a lado no PC, empilhadas no Celular) === */
+        .agenda-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Duas colunas iguais no desktop */
+            gap: 30px; /* Espaço entre as tabelas */
+        }
+
+        /* Responsividade para telas menores (celulares e tablets) */
+        @media (max-width: 992px) {
+            .agenda-grid {
+                grid-template-columns: 1fr; /* Uma coluna só no mobile */
+            }
+        }
+
+        /* === ESTILOS DAS TABELAS === */
+        .trilha-container {
+            background-color: var(--cor-fundo-tabela);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid var(--cor-borda);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            overflow-x: auto; /* Permite rolar a tabela lateralmente no celular se ficar muito larga */
+        }
+
+        .trilha-titulo {
+            text-align: center;
+            color: var(--cor-texto);
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--cor-destaque);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--cor-borda);
+            border-right: 1px solid var(--cor-borda);
+        }
+        
+        /* Remove a borda direita da última coluna */
+        th:last-child, td:last-child {
+            border-right: none;
+        }
+
+        th {
+            background-color: var(--cor-fundo-cabecalho);
+            color: var(--cor-destaque);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* Alinhamento da coluna de horário */
+        td:first-child {
+            white-space: nowrap;
+            text-align: center;
+            font-weight: bold;
+            color: var(--cor-destaque);
+        }
+
+        /* Efeito ao passar o mouse na linha */
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Estilo para linhas de pausas (breaks) */
+        .linha-pausa td {
+            text-align: center;
+            font-style: italic;
+            color: #999;
+            background-color: rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Agenda do Evento</h1>
+
+    <div class="agenda-grid">
+        
+        <!-- ========================================== -->
+        <!-- TRILHA 1: AUDITÓRIO ARAUCARIA (TÉCNICA)    -->
+        <!-- ========================================== -->
+        <div class="trilha-container">
+            <h2 class="trilha-titulo">Auditório Araucaria<br><small style="font-size:1rem; font-weight:normal; color:#aaa;">(Trilha Técnica)</small></h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Horário</th>
+                        <th>Nome</th>
+                        <th>Título Palestra</th>
+                        <th>Infos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <!-- Linha 09:00 -->
+                    <tr>
+                        <td>09h00</td>
+                        <td><strong>Credenciamento</strong></td>
+                        <td style="text-align:center;">(Foyer do evento)</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 09:30 -->
+                    <tr>
+                        <td>09h30</td>
+                        <td><strong>Abertura oficial do evento</strong></td>
+                        <td style="text-align:center;">------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 09:45 -->
+                    <tr>
+                        <td>09h45</td>
+                        <td>Poliana Moraes</td>
+                        <td>Agentes de IA em Ação: Desafios da Segurança da Informação na Era da Autonomia</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 10:30 -->
+                    <tr>
+                        <td>10h30</td>
+                        <td>Thiago Bordini</td>
+                        <td>Back to the roots</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 11:10 (Pausa) -->
+                    <tr class="linha-pausa">
+                        <td>11h10</td>
+                        <td><strong>Pausa</strong></td>
+                        <td>------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 11:30 -->
+                    <tr>
+                        <td>11h30</td>
+                        <td>José Augusto - Palestra Online</td>
+                        <td>Ghost Voice: E Quando a IA Ouve o que Ninguém Disse? Quebrando a Confiança de IAs com Áudio Adversarial</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 12:15 -->
+                    <tr>
+                        <td>12h15</td>
+                        <td>Juliana Gaioso</td>
+                        <td>Além do Chat: Automação de Pentest em Tempo Real com Model Context Protocol (MCP)</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 12:55 (Almoço) -->
+                    <tr class="linha-pausa">
+                        <td>12h55</td>
+                        <td><strong>Pausa Almoço</strong></td>
+                        <td>(evento não fornece alimentação)</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 14:30 -->
+                    <tr>
+                        <td>14h30</td>
+                        <td>Felipe Prado</td>
+                        <td>A história da Segurança da Informação - Como tudo começou e chegamos aos dias de hoje</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 15:15 -->
+                    <tr>
+                        <td>15h15</td>
+                        <td>Osmany Arruda</td>
+                        <td>Quebrando o Air-Gap com Suporte de IA: Da Invasão Wi-Fi com Airgeddon à Engenharia de Detecção em SOC de OT</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 16:00 -->
+                    <tr>
+                        <td>16h00</td>
+                        <td>Alberto Magno</td>
+                        <td>É possível hackear o sistema de GPS em casa?</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 16:40 (Pausa) -->
+                    <tr class="linha-pausa">
+                        <td>16h40</td>
+                        <td><strong>Pausa</strong></td>
+                        <td>------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 17:00 -->
+                    <tr>
+                        <td>17h00</td>
+                        <td>Cybelle Oliveira e Divina Vitorino</td>
+                        <td>Socorro! O hacker levou minha aplicação: Quem poderá nos defender?</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 17:45 -->
+                    <tr>
+                        <td>17h45</td>
+                        <td>Zoziel Freire</td>
+                        <td>macOS Doesn't Get Malware...Until It Does</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 18:25 -->
+                    <tr>
+                        <td>18h25</td>
+                        <td><strong>Encerramento</strong></td>
+                        <td style="text-align:center;">------</td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div> <!-- Fim Trilha 1 -->
+
+
+        <!-- ========================================== -->
+        <!-- TRILHA 2: AUDITÓRIO ITAPEVA (LIDERANÇA)    -->
+        <!-- ========================================== -->
+        <div class="trilha-container">
+            <h2 class="trilha-titulo">Auditório Itapeva<br><small style="font-size:1rem; font-weight:normal; color:#aaa;">(Trilha Liderança)</small></h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Horário</th>
+                        <th>Nome</th>
+                        <th>Título Palestra</th>
+                        <th>Infos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <!-- Linha 09:00 -->
+                    <tr>
+                        <td>09h00</td>
+                        <td><strong>Credenciamento</strong></td>
+                        <td style="text-align:center;">(Foyer do evento)</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 09:30 -->
+                    <tr>
+                        <td>09h30</td>
+                        <td><strong>Abertura oficial do evento</strong></td>
+                        <td style="text-align:center;">------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 09:45 -->
+                    <tr class="linha-pausa">
+                        <td>09h45</td>
+                        <td><strong>Sala Fechada</strong></td>
+                        <td>------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 10:30 -->
+                    <tr>
+                        <td>10h30</td>
+                        <td>Paulo Daniel Abreu</td>
+                        <td>Cyber como Decisão Estratégica: Como o Bacen eleva a segurança dos meios de pagamento no Brasil</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 11:10 (Pausa) -->
+                    <tr class="linha-pausa">
+                        <td>11h10</td>
+                        <td><strong>Pausa</strong></td>
+                        <td>------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 11:30 -->
+                    <tr>
+                        <td>11h30</td>
+                        <td><strong>Painel:</strong><br>
+                            Mediador: Tiago Caldas<br>
+                            Painelistas:<br>
+                            Andrea Paiva<br>
+                            Andrea Tomé
+                        </td>
+                        <td>Transição de Carreira em Cargos de Liderança</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 12:15 -->
+                    <tr>
+                        <td>12h15</td>
+                        <td>Lucas Tarifa</td>
+                        <td>VDI como estratégia de segurança: contenção, resiliência e compliance corporativo</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 12:55 (Almoço) -->
+                    <tr class="linha-pausa">
+                        <td>12h55</td>
+                        <td><strong>Pausa Almoço</strong></td>
+                        <td>(evento não fornece alimentação)</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 14:30 -->
+                    <tr>
+                        <td>14h30</td>
+                        <td>Abner Netto</td>
+                        <td>Indice de maturidade do Security Operations Center (SOC)</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 15:15 -->
+                    <tr>
+                        <td>15h15</td>
+                        <td>Reservado Patrocinador</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 16:00 -->
+                    <tr>
+                        <td>16h00</td>
+                        <td>Eduardo D. de Vasconcelos</td>
+                        <td>Da operação a estratégia – Como alinhar a maturidade</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 16:40 (Pausa) -->
+                    <tr class="linha-pausa">
+                        <td>16h40</td>
+                        <td><strong>Pausa</strong></td>
+                        <td>------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 17:00 -->
+                    <tr>
+                        <td>17h00</td>
+                        <td>Alex Vieira</td>
+                        <td>Segurança OT e IoT em Operações Portuárias e toda cadeia logística</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 17:45 -->
+                    <tr class="linha-pausa">
+                        <td>17h45</td>
+                        <td><strong>Sala Fechada</strong></td>
+                        <td>------</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Linha 18:25 -->
+                    <tr>
+                        <td>18h25</td>
+                        <td><strong>Encerramento</strong></td>
+                        <td style="text-align:center;">------</td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div> <!-- Fim Trilha 2 -->
+
+    </div> <!-- Fim Agenda Grid -->
+</div>
+
+</body>
+</html>
+"""
+
+with open('agenda-hackavalley.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print("Arquivo HTML gerado.")
