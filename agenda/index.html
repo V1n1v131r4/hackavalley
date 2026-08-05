@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cor-fundo: #07041a; /* Atualizado para combinar com o site principal */
-            --cor-fundo-alt: #0b0620; /* Atualizado para combinar com o site principal */
-            --cor-texto: #e9e6ff; /* Texto do site principal */
+            --cor-fundo: #07041a;
+            --cor-fundo-alt: #0b0620;
+            --cor-texto: #e9e6ff;
             --cor-destaque: #f591c6;
             --cor-borda: rgba(255,255,255,.12);
             --cor-fundo-tabela: rgba(255,255,255,.05);
@@ -20,16 +20,15 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(180deg, var(--cor-fundo), var(--cor-fundo-alt) 35%, #050313 100%); /* Gradiente do site principal */
+            background: linear-gradient(180deg, var(--cor-fundo), var(--cor-fundo-alt) 35%, #050313 100%);
             color: var(--cor-texto);
             margin: 0;
             padding: 20px;
             line-height: 1.6;
-            position: relative; /* Necessário para os efeitos de fundo */
+            position: relative;
             overflow-x: hidden;
         }
         
-        /* Grid background do site principal */
         body::before {
             content: "";
             position: fixed;
@@ -41,14 +40,13 @@
             z-index: -1;
         }
 
-        /* Canvas das partículas */
         #particles-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2; /* Fica atrás de tudo */
+            z-index: -2;
             pointer-events: none;
         }
 
@@ -172,12 +170,10 @@
 </head>
 <body>
 
-<!-- Canvas para os efeitos de fundo -->
 <canvas id="particles-bg"></canvas>
 
 <div class="container">
     
-    <!-- Botão de voltar topo -->
     <div>
         <a href="/" class="btn-voltar">← Voltar para o site</a>
     </div>
@@ -196,7 +192,6 @@
                         <th>Horário</th>
                         <th>Nome</th>
                         <th>Título Palestra</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -204,91 +199,76 @@
                         <td>09h00</td>
                         <td><strong>Credenciamento</strong></td>
                         <td style="text-align:center;">Hall de entrada</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>09h30</td>
                         <td><strong>Abertura oficial do evento</strong></td>
                         <td style="text-align:center;">------</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>09h45</td>
                         <td>Poliana Moraes</td>
                         <td>Agentes de IA em Ação: Desafios da Segurança da Informação na Era da Autonomia</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>10h30</td>
                         <td>Thiago Bordini</td>
                         <td>Back to the roots</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>11h10</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>11h30</td>
                         <td>José Augusto - Palestra Online</td>
                         <td>Ghost Voice: E Quando a IA Ouve o que Ninguém Disse? Quebrando a Confiança de IAs com Áudio Adversarial</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>12h15</td>
                         <td>Juliana Gaioso</td>
                         <td>Além do Chat: Automação de Pentest em Tempo Real com Model Context Protocol (MCP)</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>12h55</td>
                         <td><strong>Pausa Almoço</strong></td>
                         <td>(evento não fornece alimentação)</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>14h30</td>
                         <td>Felipe Prado</td>
                         <td>A história da Segurança da Informação - Como tudo começou e chegamos aos dias de hoje</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>15h15</td>
                         <td>Osmany Arruda</td>
                         <td>Quebrando o Air-Gap com Suporte de IA: Da Invasão Wi-Fi com Airgeddon à Engenharia de Detecção em SOC de OT</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>16h00</td>
                         <td>Alberto Magno</td>
                         <td>É possível hackear o sistema de GPS em casa?</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>16h40</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>17h00</td>
                         <td>Cybelle Oliveira e Divina Vitorino</td>
                         <td>Socorro! O hacker levou minha aplicação: Quem poderá nos defender?</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>17h45</td>
                         <td>Zoziel Freire</td>
                         <td>macOS Doesn't Get Malware...Until It Does</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>18h25</td>
                         <td><strong>Encerramento</strong></td>
                         <td style="text-align:center;">------</td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -304,7 +284,6 @@
                         <th>Horário</th>
                         <th>Nome</th>
                         <th>Título Palestra</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -312,105 +291,88 @@
                         <td>09h00</td>
                         <td><strong>Credenciamento</strong></td>
                         <td style="text-align:center;">Hall de entrada</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>09h30</td>
                         <td><strong>Abertura oficial do evento</strong></td>
                         <td style="text-align:center;">------</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>09h45</td>
                         <td><strong>Sala Fechada</strong></td>
                         <td>------</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>10h30</td>
                         <td>Paulo Daniel Abreu</td>
                         <td>Cyber como Decisão Estratégica: Como o Bacen eleva a segurança dos meios de pagamento no Brasil</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>11h10</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>11h30</td>
                         <td><strong>Painel:</strong><br>Mediador: Tiago Caldas<br>Painelistas:<br>Andrea Paiva<br>Andrea Thomé</td>
                         <td>Transição de Carreira em Cargos de Liderança</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>12h15</td>
                         <td>Lucas Tarifa</td>
                         <td>VDI como estratégia de segurança: contenção, resiliência e compliance corporativo</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>12h55</td>
                         <td><strong>Pausa Almoço</strong></td>
                         <td>(evento não fornece alimentação)</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>14h30</td>
                         <td>Abner Netto</td>
                         <td>Indice de maturidade do Security Operations Center (SOC)</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>15h15</td>
                         <td>A confirmar</td>
-                        <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>16h00</td>
                         <td>Eduardo D. de Vasconcelos</td>
                         <td>Da operação a estratégia – Como alinhar a maturidade</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>16h40</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>17h00</td>
                         <td>Alex Vieira</td>
                         <td>Segurança OT e IoT em Operações Portuárias e toda cadeia logística</td>
-                        <td></td>
                     </tr>
                     <tr class="linha-pausa">
                         <td>17h45</td>
                         <td><strong>Sala Fechada</strong></td>
                         <td>------</td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>18h25</td>
                         <td><strong>Encerramento</strong></td>
                         <td style="text-align:center;">------</td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
     
-    <!-- Botão de voltar rodapé -->
     <div class="voltar-container">
         <a href="/" class="btn-voltar">← Voltar para o site principal</a>
     </div>
 
 </div>
 
-<!-- Script para a animação das partículas -->
 <script>
     const canvas = document.getElementById('particles-bg');
     const ctx = canvas.getContext('2d');
