@@ -4,63 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda - Hacka Valley</title>
-    <!-- Você pode adicionar a fonte do site oficial aqui, por padrão usaremos uma fonte limpa e moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* === ESTILOS GERAIS DA PÁGINA === */
         :root {
-            --cor-fundo: #0a0a0a; /* Fundo escuro padrão de sites tech/hacker */
-            --cor-texto: #f2f2f2; /* Texto claro */
-            --cor-destaque: #f591c6; /* Rosa clarinho, baseado no cabeçalho da sua tabela */
-            --cor-borda: #333333;
-            --cor-fundo-tabela: #141414;
-            --cor-fundo-cabecalho: #000000;
+            --cor-fundo: #07041a; /* Atualizado para combinar com o site principal */
+            --cor-fundo-alt: #0b0620; /* Atualizado para combinar com o site principal */
+            --cor-texto: #e9e6ff; /* Texto do site principal */
+            --cor-destaque: #f591c6;
+            --cor-borda: rgba(255,255,255,.12);
+            --cor-fundo-tabela: rgba(255,255,255,.05);
+            --cor-fundo-cabecalho: rgba(0,0,0,.3);
+            --neon-cyan: #3ee7ff;
+            --neon-pink: #ff3bd4;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--cor-fundo);
+            background: linear-gradient(180deg, var(--cor-fundo), var(--cor-fundo-alt) 35%, #050313 100%); /* Gradiente do site principal */
             color: var(--cor-texto);
             margin: 0;
             padding: 20px;
             line-height: 1.6;
+            position: relative; /* Necessário para os efeitos de fundo */
+            overflow-x: hidden;
+        }
+        
+        /* Grid background do site principal */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(to bottom,rgba(255,255,255,.02),rgba(255,255,255,.02) 1px,transparent 1px,transparent 6px);
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            opacity: .35;
+            z-index: -1;
+        }
+
+        /* Canvas das partículas */
+        #particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Fica atrás de tudo */
+            pointer-events: none;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
         h1 {
             text-align: center;
-            color: var(--cor-destaque);
+            color: var(--neon-pink);
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255,59,212,.35),0 0 22px rgba(62,231,255,.25);
         }
 
-        /* === LAYOUT DAS TABELAS (Lado a lado no PC, empilhadas no Celular) === */
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,.14);
+            background: rgba(255,255,255,.06);
+            color: var(--cor-texto);
+            transition: .15s;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-voltar:hover {
+            background: rgba(255,255,255,.1);
+            transform: translateY(-1px);
+        }
+
+        .voltar-container {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
         .agenda-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Duas colunas iguais no desktop */
-            gap: 30px; /* Espaço entre as tabelas */
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
 
-        /* Responsividade para telas menores (celulares e tablets) */
         @media (max-width: 992px) {
             .agenda-grid {
-                grid-template-columns: 1fr; /* Uma coluna só no mobile */
+                grid-template-columns: 1fr;
             }
         }
 
-        /* === ESTILOS DAS TABELAS === */
         .trilha-container {
             background-color: var(--cor-fundo-tabela);
             border-radius: 8px;
             padding: 20px;
             border: 1px solid var(--cor-borda);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            overflow-x: auto; /* Permite rolar a tabela lateralmente no celular se ficar muito larga */
+            box-shadow: 0 18px 60px rgba(0,0,0,.55);
+            overflow-x: auto;
+            backdrop-filter: blur(10px);
         }
 
         .trilha-titulo {
@@ -70,7 +124,7 @@
             margin-top: 0;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--cor-destaque);
+            border-bottom: 2px solid var(--neon-cyan);
         }
 
         table {
@@ -86,50 +140,53 @@
             border-right: 1px solid var(--cor-borda);
         }
         
-        /* Remove a borda direita da última coluna */
         th:last-child, td:last-child {
             border-right: none;
         }
 
         th {
             background-color: var(--cor-fundo-cabecalho);
-            color: var(--cor-destaque);
+            color: var(--neon-cyan);
             font-weight: 700;
             text-align: center;
         }
 
-        /* Alinhamento da coluna de horário */
         td:first-child {
             white-space: nowrap;
             text-align: center;
             font-weight: bold;
-            color: var(--cor-destaque);
+            color: var(--neon-pink);
         }
 
-        /* Efeito ao passar o mouse na linha */
         tbody tr:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
-        /* Estilo para linhas de pausas (breaks) */
         .linha-pausa td {
             text-align: center;
             font-style: italic;
-            color: #999;
-            background-color: rgba(0,0,0,0.3);
+            color: rgba(233,230,255,.6);
+            background-color: rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
 
+<!-- Canvas para os efeitos de fundo -->
+<canvas id="particles-bg"></canvas>
+
 <div class="container">
+    
+    <!-- Botão de voltar topo -->
+    <div>
+        <a href="/" class="btn-voltar">← Voltar para o site</a>
+    </div>
+
     <h1>Agenda do Evento</h1>
 
     <div class="agenda-grid">
         
-        <!-- ========================================== -->
-        <!-- TRILHA 1: AUDITÓRIO ARAUCARIA (TÉCNICA)    -->
-        <!-- ========================================== -->
+        <!-- TRILHA 1: AUDITÓRIO ARAUCARIA (TÉCNICA) -->
         <div class="trilha-container">
             <h2 class="trilha-titulo">Auditório Araucaria<br><small style="font-size:1rem; font-weight:normal; color:#aaa;">(Trilha Técnica)</small></h2>
             
@@ -143,135 +200,101 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
-                    <!-- Linha 09:00 -->
                     <tr>
                         <td>09h00</td>
                         <td><strong>Credenciamento</strong></td>
                         <td style="text-align:center;">(Foyer do evento)</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 09:30 -->
                     <tr>
                         <td>09h30</td>
                         <td><strong>Abertura oficial do evento</strong></td>
                         <td style="text-align:center;">------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 09:45 -->
                     <tr>
                         <td>09h45</td>
                         <td>Poliana Moraes</td>
                         <td>Agentes de IA em Ação: Desafios da Segurança da Informação na Era da Autonomia</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 10:30 -->
                     <tr>
                         <td>10h30</td>
                         <td>Thiago Bordini</td>
                         <td>Back to the roots</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 11:10 (Pausa) -->
                     <tr class="linha-pausa">
                         <td>11h10</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 11:30 -->
                     <tr>
                         <td>11h30</td>
                         <td>José Augusto - Palestra Online</td>
                         <td>Ghost Voice: E Quando a IA Ouve o que Ninguém Disse? Quebrando a Confiança de IAs com Áudio Adversarial</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 12:15 -->
                     <tr>
                         <td>12h15</td>
                         <td>Juliana Gaioso</td>
                         <td>Além do Chat: Automação de Pentest em Tempo Real com Model Context Protocol (MCP)</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 12:55 (Almoço) -->
                     <tr class="linha-pausa">
                         <td>12h55</td>
                         <td><strong>Pausa Almoço</strong></td>
                         <td>(evento não fornece alimentação)</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 14:30 -->
                     <tr>
                         <td>14h30</td>
                         <td>Felipe Prado</td>
                         <td>A história da Segurança da Informação - Como tudo começou e chegamos aos dias de hoje</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 15:15 -->
                     <tr>
                         <td>15h15</td>
                         <td>Osmany Arruda</td>
                         <td>Quebrando o Air-Gap com Suporte de IA: Da Invasão Wi-Fi com Airgeddon à Engenharia de Detecção em SOC de OT</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 16:00 -->
                     <tr>
                         <td>16h00</td>
                         <td>Alberto Magno</td>
                         <td>É possível hackear o sistema de GPS em casa?</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 16:40 (Pausa) -->
                     <tr class="linha-pausa">
                         <td>16h40</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 17:00 -->
                     <tr>
                         <td>17h00</td>
                         <td>Cybelle Oliveira e Divina Vitorino</td>
                         <td>Socorro! O hacker levou minha aplicação: Quem poderá nos defender?</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 17:45 -->
                     <tr>
                         <td>17h45</td>
                         <td>Zoziel Freire</td>
                         <td>macOS Doesn't Get Malware...Until It Does</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 18:25 -->
                     <tr>
                         <td>18h25</td>
                         <td><strong>Encerramento</strong></td>
                         <td style="text-align:center;">------</td>
                         <td></td>
                     </tr>
-
                 </tbody>
             </table>
-        </div> <!-- Fim Trilha 1 -->
+        </div>
 
-
-        <!-- ========================================== -->
-        <!-- TRILHA 2: AUDITÓRIO ITAPEVA (LIDERANÇA)    -->
-        <!-- ========================================== -->
+        <!-- TRILHA 2: AUDITÓRIO ITAPEVA (LIDERANÇA) -->
         <div class="trilha-container">
             <h2 class="trilha-titulo">Auditório Itapeva<br><small style="font-size:1rem; font-weight:normal; color:#aaa;">(Trilha Liderança)</small></h2>
             
@@ -285,138 +308,172 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
-                    <!-- Linha 09:00 -->
                     <tr>
                         <td>09h00</td>
                         <td><strong>Credenciamento</strong></td>
                         <td style="text-align:center;">(Foyer do evento)</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 09:30 -->
                     <tr>
                         <td>09h30</td>
                         <td><strong>Abertura oficial do evento</strong></td>
                         <td style="text-align:center;">------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 09:45 -->
                     <tr class="linha-pausa">
                         <td>09h45</td>
                         <td><strong>Sala Fechada</strong></td>
                         <td>------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 10:30 -->
                     <tr>
                         <td>10h30</td>
                         <td>Paulo Daniel Abreu</td>
                         <td>Cyber como Decisão Estratégica: Como o Bacen eleva a segurança dos meios de pagamento no Brasil</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 11:10 (Pausa) -->
                     <tr class="linha-pausa">
                         <td>11h10</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 11:30 -->
                     <tr>
                         <td>11h30</td>
-                        <td><strong>Painel:</strong><br>
-                            Mediador: Tiago Caldas<br>
-                            Painelistas:<br>
-                            Andrea Paiva<br>
-                            Andrea Tomé
-                        </td>
+                        <td><strong>Painel:</strong><br>Mediador: Tiago Caldas<br>Painelistas:<br>Andrea Paiva<br>Andrea Tomé</td>
                         <td>Transição de Carreira em Cargos de Liderança</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 12:15 -->
                     <tr>
                         <td>12h15</td>
                         <td>Lucas Tarifa</td>
                         <td>VDI como estratégia de segurança: contenção, resiliência e compliance corporativo</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 12:55 (Almoço) -->
                     <tr class="linha-pausa">
                         <td>12h55</td>
                         <td><strong>Pausa Almoço</strong></td>
                         <td>(evento não fornece alimentação)</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 14:30 -->
                     <tr>
                         <td>14h30</td>
                         <td>Abner Netto</td>
                         <td>Indice de maturidade do Security Operations Center (SOC)</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 15:15 -->
                     <tr>
                         <td>15h15</td>
                         <td>Reservado Patrocinador</td>
                         <td></td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 16:00 -->
                     <tr>
                         <td>16h00</td>
                         <td>Eduardo D. de Vasconcelos</td>
                         <td>Da operação a estratégia – Como alinhar a maturidade</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 16:40 (Pausa) -->
                     <tr class="linha-pausa">
                         <td>16h40</td>
                         <td><strong>Pausa</strong></td>
                         <td>------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 17:00 -->
                     <tr>
                         <td>17h00</td>
                         <td>Alex Vieira</td>
                         <td>Segurança OT e IoT em Operações Portuárias e toda cadeia logística</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 17:45 -->
                     <tr class="linha-pausa">
                         <td>17h45</td>
                         <td><strong>Sala Fechada</strong></td>
                         <td>------</td>
                         <td></td>
                     </tr>
-
-                    <!-- Linha 18:25 -->
                     <tr>
                         <td>18h25</td>
                         <td><strong>Encerramento</strong></td>
                         <td style="text-align:center;">------</td>
                         <td></td>
                     </tr>
-
                 </tbody>
             </table>
-        </div> <!-- Fim Trilha 2 -->
+        </div>
+    </div>
+    
+    <!-- Botão de voltar rodapé -->
+    <div class="voltar-container">
+        <a href="/" class="btn-voltar">← Voltar para o site principal</a>
+    </div>
 
-    </div> <!-- Fim Agenda Grid -->
 </div>
+
+<!-- Script para a animação das partículas -->
+<script>
+    const canvas = document.getElementById('particles-bg');
+    const ctx = canvas.getContext('2d');
+    let W, H, ns = [];
+    const N = 70, D = 120, S = 0.38;
+    
+    function init() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        ns = [];
+        for(let i=0; i<N; i++) {
+            ns.push({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                vx: (Math.random() - .5) * S,
+                vy: (Math.random() - .5) * S,
+                r: Math.random() * 1.4 + .7,
+                t: Math.random() < .5 ? 'c' : 'p'
+            });
+        }
+    }
+    
+    function frame() {
+        ctx.clearRect(0, 0, W, H);
+        
+        for(let i=0; i<ns.length; i++) {
+            for(let j=i+1; j<ns.length; j++) {
+                const dx = ns[i].x - ns[j].x,
+                      dy = ns[i].y - ns[j].y,
+                      d = Math.sqrt(dx*dx + dy*dy);
+                if(d < D) {
+                    ctx.beginPath();
+                    ctx.moveTo(ns[i].x, ns[i].y);
+                    ctx.lineTo(ns[j].x, ns[j].y);
+                    ctx.strokeStyle = `rgba(62,231,255,${(1-d/D)*.28})`;
+                    ctx.lineWidth = .55;
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        ns.forEach(n => {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+            const c = n.t === 'c' ? '62,231,255' : '255,59,212';
+            ctx.fillStyle = `rgba(${c},.8)`;
+            ctx.shadowColor = `rgba(${c},1)`;
+            ctx.shadowBlur = 6;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            n.x += n.vx;
+            n.y += n.vy;
+            if(n.x < 0 || n.x > W) n.vx *= -1;
+            if(n.y < 0 || n.y > H) n.vy *= -1;
+        });
+        
+        requestAnimationFrame(frame);
+    }
+    
+    init();
+    frame();
+    window.addEventListener('resize', init);
+</script>
 
 </body>
 </html>
