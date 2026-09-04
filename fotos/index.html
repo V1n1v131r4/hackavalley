@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Fotos - Hacka Valley</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cor-fundo: #07041a;
+            --cor-fundo-alt: #0b0620;
+            --cor-texto: #e9e6ff;
+            --cor-destaque: #f591c6;
+            --cor-borda: rgba(255,255,255,.12);
+            --neon-cyan: #3ee7ff;
+            --neon-pink: #ff3bd4;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(180deg, var(--cor-fundo), var(--cor-fundo-alt) 35%, #050313 100%);
+            color: var(--cor-texto);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Grid background do site principal */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(to bottom,rgba(255,255,255,.02),rgba(255,255,255,.02) 1px,transparent 1px,transparent 6px);
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            opacity: .35;
+            z-index: -1;
+        }
+
+        /* Canvas das partículas */
+        #particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--neon-pink);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255,59,212,.35),0 0 22px rgba(62,231,255,.25);
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: rgba(233,230,255,.75);
+            margin-bottom: 40px;
+        }
+
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,.14);
+            background: rgba(255,255,255,.06);
+            color: var(--cor-texto);
+            transition: .15s;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-voltar:hover {
+            background: rgba(255,255,255,.1);
+            transform: translateY(-1px);
+        }
+
+        .voltar-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        /* ESTILOS DA GALERIA DE FOTOS */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .foto-card {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--cor-borda);
+            background: rgba(255,255,255,.03);
+            box-shadow: 0 16px 40px rgba(0,0,0,.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            aspect-ratio: 4/3; /* Mantém todas as fotos na mesma proporção */
+        }
+
+        .foto-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a foto preencha o espaço sem amassar */
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .foto-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(62,231,255,.4);
+            box-shadow: 0 10px 30px rgba(62,231,255,.15);
+        }
+
+        .foto-card:hover img {
+            transform: scale(1.05); /* Efeito de zoom na imagem */
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Canvas para os efeitos de fundo -->
+<canvas id="particles-bg"></canvas>
+
+<div class="container">
+    
+    <!-- Botão de voltar topo -->
+    <div>
+        <a href="/" class="btn-voltar">← Voltar para o site</a>
+    </div>
+
+    <h1>Momentos Hack'a Valley</h1>
+    <p class="subtitulo">Confira os registros da nossa conferência.</p>
+
+    <!-- GALERIA DE FOTOS -->
+    <div class="galeria-grid">
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto1.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto2.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto3.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto4.jpg" alt="Momento Hacka Valley">
+        </div>
+        
+        <div class="foto-card">
+            <img src="../assets/fotos/foto5.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto6.jpg" alt="Momento Hacka Valley">
+        </div>
+        
+        <div class="foto-card">
+            <img src="../assets/fotos/foto7.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto8.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto9.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto10.jpg" alt="Momento Hacka Valley">
+        </div>
+        
+        <div class="foto-card">
+            <img src="../assets/fotos/foto11.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto12.jpg" alt="Momento Hacka Valley">
+        </div>
+              
+        <div class="foto-card">
+            <img src="../assets/fotos/foto13.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto14.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto15.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto16.jpg" alt="Momento Hacka Valley">
+        </div>
+        
+        <div class="foto-card">
+            <img src="../assets/fotos/foto17.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto18.jpg" alt="Momento Hacka Valley">
+        </div>
+        
+        <div class="foto-card">
+            <img src="../assets/fotos/foto19.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto20.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto21.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto22.jpg" alt="Momento Hacka Valley">
+        </div>
+        
+        <div class="foto-card">
+            <img src="../assets/fotos/foto23.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <div class="foto-card">
+            <img src="../assets/fotos/foto24.jpg" alt="Momento Hacka Valley">
+        </div>
+
+        <!-- Para adicionar mais fotos, basta copiar e colar um bloco de div foto-card inteiro aqui embaixo -->
+
+    </div>
+    
+    <!-- Botão de voltar rodapé -->
+    <div class="voltar-container">
+        <a href="/" class="btn-voltar">← Voltar para o site principal</a>
+    </div>
+
+</div>
+
+<!-- Script para a animação das partículas -->
+<script>
+    const canvas = document.getElementById('particles-bg');
+    const ctx = canvas.getContext('2d');
+    let W, H, ns = [];
+    const N = 70, D = 120, S = 0.38;
+    
+    function init() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        ns = [];
+        for(let i=0; i<N; i++) {
+            ns.push({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                vx: (Math.random() - .5) * S,
+                vy: (Math.random() - .5) * S,
+                r: Math.random() * 1.4 + .7,
+                t: Math.random() < .5 ? 'c' : 'p'
+            });
+        }
+    }
+    
+    function frame() {
+        ctx.clearRect(0, 0, W, H);
+        
+        for(let i=0; i<ns.length; i++) {
+            for(let j=i+1; j<ns.length; j++) {
+                const dx = ns[i].x - ns[j].x,
+                      dy = ns[i].y - ns[j].y,
+                      d = Math.sqrt(dx*dx + dy*dy);
+                if(d < D) {
+                    ctx.beginPath();
+                    ctx.moveTo(ns[i].x, ns[i].y);
+                    ctx.lineTo(ns[j].x, ns[j].y);
+                    ctx.strokeStyle = `rgba(62,231,255,${(1-d/D)*.28})`;
+                    ctx.lineWidth = .55;
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        ns.forEach(n => {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+            const c = n.t === 'c' ? '62,231,255' : '255,59,212';
+            ctx.fillStyle = `rgba(${c},.8)`;
+            ctx.shadowColor = `rgba(${c},1)`;
+            ctx.shadowBlur = 6;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            n.x += n.vx;
+            n.y += n.vy;
+            if(n.x < 0 || n.x > W) n.vx *= -1;
+            if(n.y < 0 || n.y > H) n.vy *= -1;
+        });
+        
+        requestAnimationFrame(frame);
+    }
+    
+    init();
+    frame();
+    window.addEventListener('resize', init);
+</script>
+
+</body>
+</html>
