@@ -28,7 +28,6 @@
             min-height: 100vh;
         }
         
-        /* Grid background do site principal */
         body::before {
             content: "";
             position: fixed;
@@ -40,7 +39,6 @@
             z-index: -1;
         }
 
-        /* Canvas das partículas */
         #particles-bg {
             position: fixed;
             top: 0;
@@ -100,7 +98,6 @@
             margin-bottom: 30px;
         }
 
-        /* ESTILOS DA GALERIA DE FOTOS */
         .galeria-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -116,13 +113,13 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            aspect-ratio: 4/3; /* Mantém todas as fotos na mesma proporção */
+            aspect-ratio: 4/3; 
         }
 
         .foto-card img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Garante que a foto preencha o espaço sem amassar */
+            object-fit: cover; 
             display: block;
             transition: transform 0.4s ease;
         }
@@ -134,19 +131,57 @@
         }
 
         .foto-card:hover img {
-            transform: scale(1.05); /* Efeito de zoom na imagem */
+            transform: scale(1.05); 
+        }
+
+        /* --- ESTILOS DO LIGHTBOX (ZOOM DA IMAGEM) --- */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            z-index: 9999; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 3, 19, 0.9); 
+            backdrop-filter: blur(8px); 
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: rgba(255,255,255,0.7);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: sans-serif;
+        }
+
+        .lightbox-close:hover {
+            color: var(--neon-pink);
+            transform: scale(1.1);
         }
 
     </style>
 </head>
 <body>
 
-<!-- Canvas para os efeitos de fundo -->
 <canvas id="particles-bg"></canvas>
 
 <div class="container">
     
-    <!-- Botão de voltar topo -->
     <div>
         <a href="/" class="btn-voltar">← Voltar para o site</a>
     </div>
@@ -156,105 +191,96 @@
 
     <!-- GALERIA DE FOTOS -->
     <div class="galeria-grid">
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto1.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto2.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto3.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto4.jpg" alt="Momento Hacka Valley">
-        </div>
-        
-        <div class="foto-card">
-            <img src="../assets/fotos/foto5.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto6.jpg" alt="Momento Hacka Valley">
-        </div>
-        
-        <div class="foto-card">
-            <img src="../assets/fotos/foto7.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto8.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto9.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto10.jpg" alt="Momento Hacka Valley">
-        </div>
-        
-        <div class="foto-card">
-            <img src="../assets/fotos/foto11.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto12.jpg" alt="Momento Hacka Valley">
-        </div>
-              
-        <div class="foto-card">
-            <img src="../assets/fotos/foto13.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto14.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto15.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto16.jpg" alt="Momento Hacka Valley">
-        </div>
-        
-        <div class="foto-card">
-            <img src="../assets/fotos/foto17.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto18.jpg" alt="Momento Hacka Valley">
-        </div>
-        
-        <div class="foto-card">
-            <img src="../assets/fotos/foto19.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto20.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto21.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto22.jpg" alt="Momento Hacka Valley">
-        </div>
-        
-        <div class="foto-card">
-            <img src="../assets/fotos/foto23.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <div class="foto-card">
-            <img src="../assets/fotos/foto24.jpg" alt="Momento Hacka Valley">
-        </div>
-
-        <!-- Para adicionar mais fotos, basta copiar e colar um bloco de div foto-card inteiro aqui embaixo -->
-
+        <div class="foto-card"><img src="../assets/fotos/foto1.jpg" alt="Momento Hacka Valley 1"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto2.jpg" alt="Momento Hacka Valley 2"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto3.jpg" alt="Momento Hacka Valley 3"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto4.jpg" alt="Momento Hacka Valley 4"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto5.jpg" alt="Momento Hacka Valley 5"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto6.jpg" alt="Momento Hacka Valley 6"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto7.jpg" alt="Momento Hacka Valley 7"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto8.jpg" alt="Momento Hacka Valley 8"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto9.jpg" alt="Momento Hacka Valley 9"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto10.jpg" alt="Momento Hacka Valley 10"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto11.jpg" alt="Momento Hacka Valley 11"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto12.jpg" alt="Momento Hacka Valley 12"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto13.jpg" alt="Momento Hacka Valley 13"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto14.jpg" alt="Momento Hacka Valley 14"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto15.jpg" alt="Momento Hacka Valley 15"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto16.jpg" alt="Momento Hacka Valley 16"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto17.jpg" alt="Momento Hacka Valley 17"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto18.jpg" alt="Momento Hacka Valley 18"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto19.jpg" alt="Momento Hacka Valley 19"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto20.jpg" alt="Momento Hacka Valley 20"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto21.jpg" alt="Momento Hacka Valley 21"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto22.jpg" alt="Momento Hacka Valley 22"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto23.jpg" alt="Momento Hacka Valley 23"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto24.jpg" alt="Momento Hacka Valley 24"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto25.jpg" alt="Momento Hacka Valley 25"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto26.jpg" alt="Momento Hacka Valley 26"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto27.jpg" alt="Momento Hacka Valley 27"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto28.jpg" alt="Momento Hacka Valley 28"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto29.jpg" alt="Momento Hacka Valley 29"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto30.jpg" alt="Momento Hacka Valley 30"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto31.jpg" alt="Momento Hacka Valley 31"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto32.jpg" alt="Momento Hacka Valley 32"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto33.jpg" alt="Momento Hacka Valley 33"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto34.jpg" alt="Momento Hacka Valley 34"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto35.jpg" alt="Momento Hacka Valley 35"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto36.jpg" alt="Momento Hacka Valley 36"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto37.jpg" alt="Momento Hacka Valley 37"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto38.jpg" alt="Momento Hacka Valley 38"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto39.jpg" alt="Momento Hacka Valley 39"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto40.jpg" alt="Momento Hacka Valley 40"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto41.jpg" alt="Momento Hacka Valley 41"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto42.jpg" alt="Momento Hacka Valley 42"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto43.jpg" alt="Momento Hacka Valley 43"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto44.jpg" alt="Momento Hacka Valley 44"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto45.jpg" alt="Momento Hacka Valley 45"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto46.jpg" alt="Momento Hacka Valley 46"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto47.jpg" alt="Momento Hacka Valley 47"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto48.jpg" alt="Momento Hacka Valley 48"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto49.jpg" alt="Momento Hacka Valley 49"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto50.jpg" alt="Momento Hacka Valley 50"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto51.jpg" alt="Momento Hacka Valley 51"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto52.jpg" alt="Momento Hacka Valley 52"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto53.jpg" alt="Momento Hacka Valley 53"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto54.jpg" alt="Momento Hacka Valley 54"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto55.jpg" alt="Momento Hacka Valley 55"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto56.jpg" alt="Momento Hacka Valley 56"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto57.jpg" alt="Momento Hacka Valley 57"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto58.jpg" alt="Momento Hacka Valley 58"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto59.jpg" alt="Momento Hacka Valley 59"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto60.jpg" alt="Momento Hacka Valley 60"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto61.jpg" alt="Momento Hacka Valley 61"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto62.jpg" alt="Momento Hacka Valley 62"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto63.jpg" alt="Momento Hacka Valley 63"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto64.jpg" alt="Momento Hacka Valley 64"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto65.jpg" alt="Momento Hacka Valley 65"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto66.jpg" alt="Momento Hacka Valley 66"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto67.jpg" alt="Momento Hacka Valley 67"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto68.jpg" alt="Momento Hacka Valley 68"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto69.jpg" alt="Momento Hacka Valley 69"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto70.jpg" alt="Momento Hacka Valley 70"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto71.jpg" alt="Momento Hacka Valley 71"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto72.jpg" alt="Momento Hacka Valley 72"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto73.jpg" alt="Momento Hacka Valley 73"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto74.jpg" alt="Momento Hacka Valley 74"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto75.jpg" alt="Momento Hacka Valley 75"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto76.jpg" alt="Momento Hacka Valley 76"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto77.jpg" alt="Momento Hacka Valley 77"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto78.jpg" alt="Momento Hacka Valley 78"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto79.jpg" alt="Momento Hacka Valley 79"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto80.jpg" alt="Momento Hacka Valley 80"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto81.jpg" alt="Momento Hacka Valley 81"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto82.jpg" alt="Momento Hacka Valley 82"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto83.jpg" alt="Momento Hacka Valley 83"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto84.jpg" alt="Momento Hacka Valley 84"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto85.jpg" alt="Momento Hacka Valley 85"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto86.jpg" alt="Momento Hacka Valley 86"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto87.jpg" alt="Momento Hacka Valley 87"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto88.jpg" alt="Momento Hacka Valley 88"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto89.jpg" alt="Momento Hacka Valley 89"></div>
+        <div class="foto-card"><img src="../assets/fotos/foto90.jpg" alt="Momento Hacka Valley 90"></div>
     </div>
     
     <!-- Botão de voltar rodapé -->
@@ -264,7 +290,13 @@
 
 </div>
 
-<!-- Script para a animação das partículas -->
+<!-- ESTRUTURA DO LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Imagem Ampliada">
+</div>
+
+<!-- Scripts (Partículas + Lightbox) -->
 <script>
     const canvas = document.getElementById('particles-bg');
     const ctx = canvas.getContext('2d');
@@ -327,6 +359,32 @@
     init();
     frame();
     window.addEventListener('resize', init);
+
+    // --- SCRIPT DO LIGHTBOX (ZOOM DA FOTO) ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('lightbox-close');
+    const galleryImages = document.querySelectorAll('.foto-card img');
+
+    // Ao clicar em uma foto, abre o lightbox com a imagem correspondente
+    galleryImages.forEach(img => {
+        img.addEventListener('click', () => {
+            lightbox.style.display = 'flex';
+            lightboxImg.src = img.src;
+        });
+    });
+
+    // Ao clicar no X, fecha o lightbox
+    closeBtn.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+    });
+
+    // Ao clicar fora da imagem (no fundo escuro), fecha o lightbox
+    lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg) {
+            lightbox.style.display = 'none';
+        }
+    });
 </script>
 
 </body>
